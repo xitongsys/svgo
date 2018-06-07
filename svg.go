@@ -410,6 +410,13 @@ func (svg *SVG) Text(x int, y int, t string, s ...string) {
 	svg.println(`</text>`)
 }
 
+func (svg *SVG) TextWithTitle(x int, y int, t string, title string, s ...string) {
+	svg.printf(`<text %s %s`, loc(x, y), endstyle(s, ">"))
+	xml.Escape(svg.Writer, []byte(t))
+	svg.printf(`<title>%s</title>`, title)
+	svg.println(`</text>`)
+}
+
 // Textpath places text optionally styled text along a previously defined path
 // Standard Reference: http://www.w3.org/TR/SVG11/text.html#TextPathElement
 func (svg *SVG) Textpath(t string, pathid string, s ...string) {
